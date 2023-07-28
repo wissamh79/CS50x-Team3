@@ -1,0 +1,30 @@
+{% extends 'layout.html' %} {% block title %} Movies page {% endblock %} {%
+block body %}
+<p class="p">Movies</p>
+<div class="grid-container">
+  {% for movie in movies %}
+  <div class="container-row">
+    <a
+      style="width: fit-content"
+      href="{{url_for('movies_router.movie_details', movie_id=movie.id)}}"
+    >
+      <img
+        src="{{movie.poster}}"
+        alt=""
+        width="200px"
+        height="200px"
+        style="object-fit: fill; border-radius: 7px"
+      />
+    </a>
+    <div class="container-col">
+      <p class="heading">{{movie.title}}</p>
+      <a class="a" href="{{movie.trailer}}" target="_blank">YouTube</a>
+      <span class="span"> Duration: {{ movie.length }}</span>
+      <span class="span"> Rating: {{ movie.rating }}</span>
+      <span class="span"> Release: {{ movie.release }}</span>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+{% endblock %}

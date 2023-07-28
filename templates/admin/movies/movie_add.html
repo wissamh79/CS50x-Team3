@@ -1,0 +1,131 @@
+{% extends './admin/adminLayout.html' %} {% block title %} Add a Movie {%
+endblock %} {% block body %}
+
+<form
+  action="{{url_for('admin_router.admin_movies')}}"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <div class="form-group">
+    <div class="col-form-element">
+      <label class="form-title" for="">Title</label>
+      <input class="input" type="text" name="title" id="" />
+    </div>
+    <div class="col-form-element">
+      <label class="form-title" for="">Length </label>
+      <input
+        class="input"
+        type="text"
+        name="length"
+        placeholder="Length ex: 1h:45min"
+      />
+    </div>
+    <div class="col-form-element">
+      <label class="form-title" for="">Rating</label>
+      <input
+        class="input"
+        type="number"
+        step="0.01"
+        min="0"
+        max="10"
+        name="rating"
+        placeholder="rating ex: 6.9"
+      />
+    </div>
+  </div>
+
+  <div class="col-form-element">
+    <label for="description">Description</label>
+    <textarea
+      class="input"
+      id="description"
+      name="description"
+      rows="4"
+      cols="81"
+    ></textarea>
+  </div>
+  <div class="col-form-element">
+    <label class="form-title" for="">Trailer URL</label>
+    <input
+      class="input"
+      type="text"
+      name="trailer"
+      placeholder="trailer url, ex: https://youtube.com/asdoij"
+    />
+  </div>
+  <div class="form-group">
+    <div class="col-form-element">
+      <label class="form-title" for="poster">Poster</label>
+      <div class="input-file-div">
+        <input class="input-file" name="file" type="file" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          fill="none"
+          stroke="currentColor"
+          class="icon"
+        >
+          <polyline points="16 16 12 12 8 16"></polyline>
+          <line y2="21" x2="12" y1="12" x1="12"></line>
+          <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+          <polyline points="16 16 12 12 8 16"></polyline>
+        </svg>
+      </div>
+    </div>
+    <div class="col-form-element">
+      <label class="form-title" for="">Release Date</label>
+      <input class="input" type="date" name="release" placeholder="Release" />
+    </div>
+  </div>
+
+  <div class="row-form-element">
+    <select style="width: 100%" name="genres" id="GenresSelector" multiple>
+      <option disabled selected>Choose genres</option>
+      {% for genre in data.genres%}
+      <option value="{{genre.id}}">{{genre.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="row-form-element">
+    <select style="width: 100%" name="actors" id="ActorSelector" multiple>
+      <option disabled selected>Choose Actors</option>
+      {% for person in data.people %}
+      <option value="{{person.id}}">{{person.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="row-form-element">
+    <select style="width: 100%" name="directors" id="DirectorSelector" multiple>
+      <option disabled selected>Choose Director</option>
+      {% for person in data.people %}
+      <option value="{{person.id}}">{{person.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="row-form-element">
+    <input type="checkbox" name="is_featured" id="featured" />
+    <label for="featured">Is featured ? </label>
+  </div>
+  <button type="submit" class="button">
+    <span class="span"></span>
+    <span>Insert </span>
+  </button>
+  <!-- <input type="submit" value="Insert Movie" class="button" /> -->
+</form>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script>
+  const TomOptions = {
+    create: false,
+  };
+  new TomSelect("#GenresSelector", TomOptions);
+  new TomSelect("#ActorSelector", TomOptions);
+  new TomSelect("#DirectorSelector", TomOptions);
+</script>
+{% endblock %}

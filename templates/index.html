@@ -1,0 +1,86 @@
+{% extends 'layout.html' %} {% block title %} Homepage {% endblock %} {% block
+body %}
+<div class="glide">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      {% for movie in data.featured_movies %}
+      <li class="glide__slide">
+        <a href="/movies/{{movie.id}}">
+          <img class="poster" src="{{movie.poster}}" alt="{{movie.title}}" />
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="glide__arrows" data-glide-el="controls">
+    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+      prev
+    </button>
+    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+      next
+    </button>
+  </div>
+</div>
+
+<!------------------------------------ Movies ------------------------------------------>
+<div class="movies">
+  <p class="movies-p">Movies</p>
+  <div class="my-flex">
+    {% for movie in data.movies %}
+    <div class="card">
+      <a
+        class="card-a"
+        href="{{url_for('movies_router.movie_details', movie_id=movie.id)}}"
+      >
+        <img class="card-image" src="{{movie.poster}}" alt=""
+      /></a>
+      <p class="card-heading">{{movie.title}}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!---------------------------------------Featured Shows---------------------------------------->
+<div class="glide">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      {% for show in data.featured_shows %}
+      <li class="glide__slide">
+        <img class="poster" src="{{show.poster}}" alt="{{show.title}}" />
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="glide__arrows" data-glide-el="controls">
+    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+      prev
+    </button>
+    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+      next
+    </button>
+  </div>
+</div>
+<!-------------------------------------------Shows---------------------------------------------->
+<div class="movies">
+  <p class="movies-p">TV Shows</p>
+  <div class="shows my-flex">
+    {% for show in data.shows %}
+    <div class="card">
+      <img class="card-image" src="{{show.poster}}" alt="" />
+      <p class="card-heading">{{show.title}}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+<script>
+  const carousel_options = {
+    type: "carousel",
+    autoplay: 1000,
+    startAt: 0,
+    perView: 3,
+  };
+  new Glide(".glide", carousel_options).mount();
+</script>
+{% endblock %}

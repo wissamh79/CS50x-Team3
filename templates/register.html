@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <form action="/register" method="post">
+        <input type="text" name="name" placeholder="Full Name">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="pass1" placeholder="Password">
+        <input type="password" name="pass2" placeholder="Connfirm Password">
+        <input type="tel" name="phone" placeholder="Phone number">
+        <input type="date" name="birthdate" placeholder="Birthdate">
+        <select name="gender" >
+            <option disabled selected>Choose Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

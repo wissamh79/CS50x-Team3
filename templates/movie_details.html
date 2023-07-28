@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% for k in movie %}
+    <h4>{{ k }} = {{ movie[k] }}</h4>
+    {% endfor %}
+
+    <h3>Actors</h3>
+    {% for actor in actors %}
+    <h6>{{ actor['name'] }}</h6>
+    <img src="{{ actor['photo'] }}" alt="" />
+    {% endfor %}
+    <h3>Directors</h3>
+    {% for director in directors %}
+    <h6>{{ director['name'] }}</h6>
+    <img src="{{ director['photo'] }}" alt="" />
+    {% endfor %}
+  </body>
+</html>

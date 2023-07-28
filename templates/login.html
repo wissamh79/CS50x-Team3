@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    {% if get_flashed_messages() %}
+        <header>
+            <div class="alert alert-danger mb-0 text-center" role="alert">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
+        {% endif %}
+    <form action="/login" method="post">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" >
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
