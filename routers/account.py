@@ -43,9 +43,8 @@ def registeration_handler():
     pass2 = request.form.get("pass2", None)
     phone = request.form.get("phone", None)
     birthdate = request.form.get("birthdate", None)
-    gender = request.form.get("gender", None)
 
-    check_list = [name, email, pass1, pass2, phone, birthdate, gender]
+    check_list = [name, email, pass1, pass2, phone, birthdate]
     is_checked = all([bool(x) for x in check_list])
     if not is_checked:
         return render_template("register.html")
@@ -60,13 +59,12 @@ def registeration_handler():
         return render_template("register.html")
 
     user_id = db.execute(
-        "INSERT INTO users (name, email, password,phone,birthdate,gender) VALUES (?,?,?,?,?,?);",
+        "INSERT INTO users (name, email, password,phone,birthdate) VALUES (?,?,?,?,?,?);",
         name,
         email,
         generate_password_hash(pass1),
         phone,
         birthdate,
-        gender,
     )
 
     return redirect("/login")

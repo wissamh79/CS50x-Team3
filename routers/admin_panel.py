@@ -6,281 +6,188 @@ admin_router = Blueprint(
     "admin_router",
     __name__,
     static_folder="../static/",
-    template_folder="../templates",
+    template_folder="../templates/",
 )
+## events
+
+@admin_router.route("/events")
+def admin_events_list():
+    events = db.execute("SELECT * FROM events;")
+    return render_template("admin/events/events_list.html", events=events)
 
 
-@admin_router.route("/movies")
-def admin_movies_list():
-    movies = db.execute("SELECT * FROM movies;")
-    return render_template("admin/movies/movies_list.html", movies=movies)
-
-
-@admin_router.route("/movies/add", methods=["GET", "POST"])
-def admin_movies():
+@admin_router.route("/events/add", methods=["GET", "POST"])
+def admin_events():
     if request.method == "GET":
-        people = db.execute("SELECT id, name FROM people ORDER BY name ASC;")
-        genres = db.execute("SELECT id, name FROM genres ORDER BY name ASC;")
+       
 
         return render_template(
-            "admin/movies/movie_add.html", data={"people": people, "genres": genres}
+            "admin/events/event_add.html"
         )
     else:
         title = request.form.get("title")
         description = request.form.get("description")
-        release = request.form.get("release")
-        length = request.form.get("length")
-        rating = request.form.get("rating")
-        trailer = request.form.get("trailer")
+        date = request.form.get("date")
         is_featured = True if request.form.get("is_featured") == "on" else False
-        image = request.files.get("poster", None)
-        genres = request.form.getlist("genre")
-        actors = request.form.getlist("actors")
-        directors = request.form.getlist("directors")
+        poster = request.files.get("poster", None)
+
 
         res = requests.post(
             "https://api.imgbb.com/1/upload",
-            files={"image": image},
+            files={"poster": poster},
             params={"key": "b541fcbfce81e58bba252fdd01197bbf"},
         )
         if res.ok:
             data = res.json()
-            image = data["data"]["url"]
+            poster = data["data"]["url"]
         else:
-            image = ""
-        # Insert movies table information
-        movie_id = db.execute(
+            poster = ""
+        # Insert events table information
+        event_id = db.execute(
             """
-                   INSERT INTO movies 
-                   (title, description, release, length, 
-                   rating, trailer, is_featured, poster)
+                   INSERT INTO events 
+                   (title, description, date, is_featured, poster)
                    """,
             title,
             description,
-            release,
-            length,
-            rating,
-            trailer,
+            date,
             bool(is_featured),
-            image,
+            poster,
         )
-        # Insert genres
-        db.execute(
-            """
-                   INSERT INTO movies_genres (movie_id, genre_id)
-                   SELECT ? AS movieID ,genres.id
-                   FROM genres WHERE genres.id IN (?);
-                   """,
-            movie_id,
-            genres,
-        )
-        # Insert Actors
-        db.execute(
-            """
-                   INSERT INTO movies_actors (movie_id, people_id)
-                   SELECT ? AS movieID ,people.id
-                   FROM people WHERE people.id IN (?);
-                   """,
-            movie_id,
-            actors,
-        )
-        # Insert Directors
-        db.execute(
-            """
-                   INSERT INTO movies_directors (movie_id, people_id)
-                   SELECT ? AS movieID ,people.id
-                   FROM people WHERE people.id IN (?);
-                   """,
-            movie_id,
-            directors,
-        )
-        return redirect("/admin/movies")
+
+        return redirect("/admin/events")
 
 
-@admin_router.route("/movies/<movie_id>/edit", methods=["GET", "POST"])
-def admin_movies_edit(movie_id):
+@admin_router.route("/events/<event_id>/edit", methods=["GET", "POST"])
+def admin_events_edit(event_id):
     if request.method == "GET":
         try:
-            movie = db.execute("SELECT * FROM movies WHERE id=?;", movie_id)[0]
+            event = db.execute("SELECT * FROM events WHERE id=?;", event_id)[0]
         except:
             return render_template("404.html")
-        genres = db.execute(
-            """SELECT genres.id AS id,genres.name AS name, 
-            CASE WHEN movies_genres.movie_id IS NULL THEN 0 ELSE 1 END AS exist
-            FROM genres LEFT JOIN movies_genres ON genres.id = movies_genres.genre_id
-            AND movies_genres.movie_id = ?""",
-            movie_id,
-        )
-
-        actors = db.execute(
-            """SELECT people.id as id, people.name as name,
-            CASE WHEN movies_actors.movie_id IS NULL THEN 0 ELSE 1 END AS exist
-            FROM people LEFT JOIN movies_actors ON people.id = movies_actors.people_id
-            AND movies_actors.movie_id = ?;""",
-            movie_id,
-        )
-
-        directors = db.execute(
-            """SELECT people.id as id, people.name as name,
-            CASE WHEN movies_directors.movie_id IS NULL THEN 0 ELSE 1 END AS exist
-            FROM people LEFT JOIN movies_directors ON people.id = movies_directors.people_id
-            AND movies_directors.movie_id = ?;""",
-            movie_id,
-        )
 
         return render_template(
-            "admin/movies/movie_edit.html",
-            movie=movie,
-            genres=genres,
-            directors=directors,
-            actors=actors,
+            "admin/events/event_edit.html",
+            event=event,
         )
 
     # Post Method
     else:
-        genres = request.form.getlist("genres")
-        actors = request.form.getlist("actors")
-        directors = request.form.getlist("directors")
         title = request.form.get("title")
-        release = request.form.get("release")
+        date = request.form.get("date")
         description = request.form.get("description")
-        length = request.form.get("length")
-        rating = request.form.get("rating")
-        trailer = request.form.get("trailer")
         is_featured = True if request.form.get("is_featured") == "on" else False
-        image = request.files.get("poster", None)
+        poster = request.files.get("poster", None)
 
-        # If changed image, Upload new image.
-        if image:
+        # If changed poster, Upload new poster.
+        if poster:
             res = requests.post(
                 "https://api.imgbb.com/1/upload",
-                files={"image": image},
+                files={"poster": poster},
                 params={"key": "b541fcbfce81e58bba252fdd01197bbf"},
             )
             if res.ok:
                 data = res.json()
-                image = data["data"]["url"]
+                poster = data["data"]["url"]
         else:
-            image = db.execute("SELECT poster FROM movies WHERE id=?", movie_id)[0][
+            poster = db.execute("SELECT poster FROM events WHERE id=?", event_id)[0][
                 "poster"
             ]
+            
         # Start updating
         db.execute(
             """
-                   UPDATE movies SET title = ?, description = ?, release = ? , length = ?, rating = ?, poster = ?, trailer = ?, is_featured = ? WHERE id = ?;
+                   UPDATE events SET title = ?, description = ?, date = ? , poster = ?, is_featured = ? WHERE id = ?;
                    """,
             title,
             description,
-            release,
-            length,
-            float(rating),
-            image,
-            trailer,
+            date,
+            poster,
             bool(is_featured),
-            movie_id,
-        )
-        db.execute(
-            """
-                   INSERT INTO movies_genres (movie_id, genre_id)
-                   
-                    SELECT ? AS movieID, genres.id AS GenreID
-                    FROM genres WHERE genres.id IN (?)
-                    AND genres.id NOT IN (
-                    SELECT genre_id FROM movies_genres WHERE movie_id = ?);
-                   """,
-            movie_id,
-            genres,
-            movie_id,
+            event_id,
         )
 
-        db.execute(
-            """
-                   INSERT INTO movies_actors (movie_id, people_id)
-                   
-                    SELECT ? AS movieID, people.id AS peopleID
-                    FROM people WHERE people.id IN (?)
-                    AND people.id NOT IN (
-                    SELECT people_id FROM movies_actors WHERE movie_id = ?);
-                   """,
-            movie_id,
-            actors,
-            movie_id,
-        )
-        db.execute(
-            """
-                   INSERT INTO movies_directors (movie_id, people_id)
-                   
-                    SELECT ? AS movieID, people.id AS peopleID
-                    FROM people WHERE people.id IN (?)
-                    AND people.id NOT IN (
-                    SELECT people_id FROM movies_directors WHERE movie_id = ?);
-                   """,
-            movie_id,
-            directors,
-            movie_id,
-        )
-        return redirect("/admin/movies")
+        return redirect("/admin/events")
 
 
-@admin_router.route("/people")
-def admin_people_list():
-    people = db.execute("SELECT * FROM people;")
-    return render_template("admin/people/people_list.html", people=people)
+## users
+
+@admin_router.route("/users")
+def admin_users_list():
+    users = db.execute("SELECT * FROM users;")
+    return render_template("admin/users/users_list.html", users=users)
 
 
-@admin_router.route("/people/add", methods=["GET", "POST"])
-def admin_people():
+@admin_router.route("/users/add", methods=["GET", "POST"])
+def admin_users():
     if request.method == "GET":
-        return render_template("admin/people/people_add.html")
+       
 
-    name = request.form.get("name", None)
-    image = request.files.get("photo")
-    print(request.files)
-
-    if image:
-        res = requests.post(
-            "https://api.imgbb.com/1/upload",
-            files={"image": image},
-            params={"key": "b541fcbfce81e58bba252fdd01197bbf"},
+        return render_template(
+            "admin/users/user_add.html"
         )
-        if res.ok:
-            data = res.json()
-            image = data["data"]["url"]
-            print(image)
-
-    try:
-        db.execute("INSERT INTO people (name, photo) VALUES (?,?);", name, image)
-    except Exception as e:
-        print(f"An Error has been generated\n".upper() + e)
-        return render_template("failure.html")
-    return redirect("/admin/people")
-
-
-@admin_router.route("/people/<people_id>/edit", methods=["GET", "POST"])
-def admin_people_edit(people_id):
-    try:
-        person = db.execute("SELECT * FROM people WHERE id = ?;", people_id)[0]
-    except:
-        return render_template("failure.html")
-    if request.method == "GET":
-        return render_template("admin/people/people_edit.html", person=person)
-
-    name = request.form.get("name")
-    image = request.files.get("photo")
-
-    if not image:
-        try:
-            image = db.execute("SELECT photo FROM people WHERE id = ?")[0]["photo"]
-        except:
-            return render_template("failure.html")
     else:
-        res = requests.post(
-            "https://api.imgbb.com/1/upload",
-            files={"image": image},
-            params={"key": "b541fcbfce81e58bba252fdd01197bbf"},
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        phone = request.form.get("phone")
+        birthday = request.form.get("birthday")
+        is_featured = True if request.form.get("is_featured") == "on" else False
+
+
+        # Insert users table information
+        user_id = db.execute(
+            """
+                   INSERT INTO users 
+                   (name, email, password, phone, birthday, is_featured)
+                   """,
+            name,
+            email,
+            password,
+            phone,
+            birthday,
+            bool(is_featured),
         )
-        if res.ok:
-            data = res.json()
-            image = data["data"]["url"]
-    db.execute("UPDATE people SET name = ?, photo = ?", name, image)
-    return redirect("/admin/people")
+
+        return redirect("/admin/users")
+
+
+@admin_router.route("/users/<user_id>/edit", methods=["GET", "POST"])
+def admin_users_edit(user_id):
+    if request.method == "GET":
+        try:
+            user = db.execute("SELECT * FROM users WHERE id=?;", user_id)[0]
+        except:
+            return render_template("404.html")
+
+        return render_template(
+            "admin/users/user_edit.html",
+            user=user,
+        )
+
+    # Post Method
+    else:
+        name = request.form.get("name")
+        email = request.form.get("email")
+        passowrd = request.form.get("passowrd")
+        phone = request.form.get("phone")
+        birthday = request.form.get("birthday")
+        
+
+        is_featured = True if request.form.get("is_featured") == "on" else False
+  
+        # Start updating
+        db.execute(
+            """
+                   UPDATE users SET name = ?, email = ?, passowrd = ? , phone = ?, birthday = ?, is_featured = ? WHERE id = ?;
+                   """,
+            name,
+            email,
+            passowrd,
+            phone,
+            birthday,
+            bool(is_featured),
+            user_id,
+        )
+
+        return redirect("/admin/users")

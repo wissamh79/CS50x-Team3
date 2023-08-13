@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user Edit</title>
+</head>
+<body>
+    <form action="{{url_for('admin_router.admin_user_edit', user_id=user.id)}}" method="post" enctype="multipart/form-data">
+        <div class="form-input">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="{{user.name}}">
+            <input type="email" name="email" id="name" value="{{user.email}}">
+            <input type="password" name="password" id="name" value="{{user.password}}">
+            <input type="tel" name="phone" id="name" value="{{user.phone}}">
+            <input type="date" name="birthday" id="name" value="{{user.birthday}}">
+        </div>
+
+        <input type="submit" value="Edit Now">
+    </form>
+
+</body>
+</html>

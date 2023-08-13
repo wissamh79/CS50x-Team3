@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add user</title>
+</head>
+<body>
+    <form action="{{url_for('admin_router.admin_users')}}" method="post" enctype="multipart/form-data">
+        <input type="text" required name="name" placeholder="user Name...">
+        <input type="email" required name="mail" placeholder="user Email...">
+        <input type="password" required name="password" placeholder="user Password...">
+        <input type="tel" required name="phone" placeholder="user Phone...">
+        <input type="date" required name="birthday" placeholder="user birthday...">
+        <input type="submit" value="Add user">
+    </form>
+</body>
+</html>

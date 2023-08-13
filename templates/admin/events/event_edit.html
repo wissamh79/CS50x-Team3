@@ -1,0 +1,71 @@
+{% extends 'layout.html' %} {% block title %} event Edit {% endblock %} {% block
+body %}
+
+<form
+  action="{{url_for('admin_router.admin_events_edit',event_id=event['id'])}}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <input type="text" name="title" value="{{event.title}}" />
+  <br />
+  <textarea name="description" cols="30" rows="4">
+{{event.description}}</textarea
+  >
+  <br />
+  <input type="date" name="date" id="" value="{{event.date}}" />
+  <br />
+  <label for="featured">Is Featured ?</label>
+  <input
+    id="featured"
+    type="checkbox"
+    name="is_featured"
+    value="{{event.is_featured}}"
+  />
+  
+
+  <img
+    src="{{event.poster}}"
+    alt=""
+    id="shownPoster"
+    height="300"
+    width="200"
+  />
+  <button
+    style="
+      display: block;
+      width: 180px;
+      height: 65px;
+      border-radius: 10px;
+      padding: 8px;
+    "
+    onclick="document.getElementById('newPoster').click();return false;"
+  >
+    Leave this if no change or click to upload new image
+  </button>
+  <input name="poster" type="file" id="newPoster" style="display: none" />
+
+  <br /><br />
+
+  <input type="submit" value="Edit Now" />
+</form>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script>
+  const TomOptions = {
+    create: false,
+  };
+
+  document.getElementById("newPoster").onchange = function (evt) {
+    var tgt = evt.target || window.event.srcElement,
+      files = tgt.files;
+
+    // FileReader support
+    if (FileReader && files && files.date) {
+      var fr = new FileReader();
+      fr.onload = function () {
+        document.getElementById("shownPoster").src = fr.result;
+      };
+      fr.readAsDataURL(files[0]);
+    }
+  };
+</script>
+{% endblock %}

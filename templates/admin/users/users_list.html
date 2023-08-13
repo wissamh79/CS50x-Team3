@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin People </title>
+    <title>Admin user </title>
 
 </head>
 <body>
-    {% for person in people %}
+   <a href="/admin/users/add"><button>ADD</button></a> 
+    {% for user in users %}
     <div class="card">
-        <img src="{{person.photo}}" alt="" width="200px" height="300px">
         <div class="info">
-            <a href="{{url_for('admin_router.admin_people_edit', people_id=person.id)}}">{{person.name}}</a>
+            <a href="{{url_for('admin_router.admin_user_edit', user_id=user.id)}}">{{user.name}}</a>
         </div>
     </div>
     {% endfor %}
