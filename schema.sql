@@ -1,7 +1,4 @@
-CREATE TABLE IF NOT EXISTS Day (
-id INTEGER PRIMARY KEY,
-name TEXT NOT NULL UNIQUE 
-);
+
 
 
 
@@ -10,18 +7,11 @@ id INTEGER PRIMARY KEY,
 title TEXT NOT NULL UNIQUE,
 description TEXT,
 poster TEXT,
+date DATE NULL,
 is_featured BOOLEAN NOT NULL DEFAULT False
 );
 
 
-
-CREATE TABLE IF NOT EXISTS Date (
-id INTEGER PRIMARY KEY,
-Day_id INTEGER,
-Event_id INTEGER,
-FOREIGN KEY (Day_id) REFERENCES Day (id)
-FOREIGN KEY (Event_id) REFERENCES Event (id)
-);
 
 
 
