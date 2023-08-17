@@ -8,11 +8,12 @@ body {
   height: 100%;
   min-width: 100%;
   min-height: 100%;
-  padding-right: 100px;
-  padding-left: 100px;
+
   margin: 0;
   overflow-y: scroll;
-  background-color: #f3f3f3;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+
+	animation: gradient 15s ease infinite;
 }
 header {
   width: 100%;

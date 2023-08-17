@@ -4,16 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="/static/css/singup.css">
 </head>
 <body>
-    <form action="/register" method="post">
-        <input type="text" name="name" placeholder="Full Name">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="pass1" placeholder="Password">
-        <input type="password" name="pass2" placeholder="Connfirm Password">
-        <input type="tel" name="phone" placeholder="Phone number">
-        <input type="date" name="birthdate" placeholder="Birthdate">
-        <input type="submit" value="Register">
-    </form>
+    <div class="container">
+        <div class="box">
+            <h1>Registration</h1>
+            <form>
+               <div>
+                <i class="fs-solid fa-user"></i>
+                <input type="text" required placeholder="Enter your name">
+               </div>
+               <div>
+                <i class="fs-solid fa-envelope"></i>
+                <input type="text" required placeholder="Enter your Email">                
+               </div>
+               <div>
+                <i class="fs-solid fa-lock"></i>
+                <input type="password" required placeholder="Enter your password">               
+               </div>
+               <div>
+                <i class="fs-solid fa-phone"></i>
+                <input type="text" required placeholder="Enter your phone number">                
+               </div>
+               <div>
+                <i class="fs-solid fa-calendar"></i>
+                <input type="date" required >                
+               </div>
+               <input type="submit" value="Register" href="/templates/login.html">
+            </form>
+            <span>
+                Already have an account?
+                <a href="/login">Login</a>
+            </span>
+        </div>
+    </div>
 </body>
 </html>

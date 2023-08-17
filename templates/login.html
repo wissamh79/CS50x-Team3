@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
-    {% if get_flashed_messages() %}
-        <header>
-            <div class="alert alert-danger mb-0 text-center" role="alert">
-                {{ get_flashed_messages() | join(" ") }}
-            </div>
-        </header>
-        {% endif %}
-    <form action="/login" method="post">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" >
-        <input type="submit" value="Login">
-    </form>
+    <div class="container">
+        <div class="box">
+             <h1>Login</h1>
+               <form>
+                   <label>Username</label>
+                      <div>
+                           <i class="fa-solid fa-user"></i>
+                           <input type="text" placeholder="Enter Username">
+                      </div>
+                   <label>Password</label>
+                      <div>
+                          <i class="fa-sold fa-lock"></i>
+                          <input type="password" placeholder="Password">
+                      </div>
+                   <a href="#" class="forgot">Forgot password</a>
+                   <input type="submit" value="Login">
+ 
+                 </form>
+             <a href="/templates/register.html" class="signup">sgin up</a>
+        </div>
+     </div>
 </body>
 </html>

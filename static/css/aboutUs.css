@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --primary-color: #90e0ef;
+    --secondary-color: #00b4d5;
+    --gray-color: #808080;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    background-color: var(--primary-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boxAboutUs {
+    background-color: white;
+    box-shadow: 5px 5px 10px 1px rgb(0, 0, 0, 12%);
+    border-radius: 10px;
+    padding: 50px;
+    margin: 10px 0;
+    max-width: 95%;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.boxAboutUs .img-holder {
+    width: 450px;
+    max-width: 100%;
+}
+
+.boxAboutUs .img-holder img {
+    width: 100%;
+}
+
+.boxAboutUs .info {
+    width: 450px;
+    max-width: 100%;
+}
+
+.boxAboutUs .info p {
+    margin: 20px 0;
+    line-height: 1.62;
+    color: var(--gray-color);
+}
+
+.boxAboutUs .info ul {
+    list-style: none;
+    display: flex;
+}
+
+.boxAboutUs .info ul li a {
+    margin-right: 15px;
+    color: var(--gray-color);
+}
+
+.boxAboutUs .info ul li a:hover {
+    color: var(--secondary-color);
+}
+
+@media (max-width: 991px) {
+    .boxAboutUs {
+        flex-direction: column;
+    }
+    .boxAboutUs .img-holder {
+        width: 350px;
+    }
+    .boxAboutUs .info {
+        width: 635px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .boxAboutUs .info p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .boxAboutUs {
+        padding: 35px;
+        gap: 25px;
+    }
+    .boxAboutUs .img-holder {
+        width: 275px;
+    }
+    .boxAboutUs .info {
+        width: 575px;
+    }
+    .boxAboutUs .info h1 {
+        font-size: 25px;
+    }
+    .boxAboutUs .info p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .boxAboutUs {
+        padding: 25px;
+        gap: 20px;
+    }
+    .boxAboutUs .info p {
+        margin: 15px 0;
+    }
+}

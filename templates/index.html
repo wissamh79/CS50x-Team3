@@ -1,86 +1,143 @@
-{% extends 'layout.html' %} {% block title %} Homepage {% endblock %} {% block
-body %}
-<div class="glide">
-  <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides">
-      {% for movie in data.featured_movies %}
-      <li class="glide__slide">
-        <a href="/movies/{{movie.id}}">
-          <img class="poster" src="{{movie.poster}}" alt="{{movie.title}}" />
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+
+<link rel="stylesheet" href="../static/css/home-page.css">
+<main class="main-container">
+
+
+<ul class="snip1189">
+  <li class="current"><a href="#">Home</a></li>
+  <li ><a href="n.html">About Us</a></li>
+  <li><a href="#">Blog</a></li>
+  <li><a href="#">Services</a></li>
+  <li><a href="#">Products</a></li>
+  <li class="footer"><a href="c.html">Contact</a></li>
+</ul>
+  
+  <div class="wrapper">
+<div class="card"><img src="../static/imges/Screenshot 2023-08-04 161829.png"/>
+<div class="info">
+<h1>Mountain</h1>
+<p>Lorem Ipsum is simply dummy text from the printing and typeseting industry</p>
+<button>Read More</button>
+</div>
+</div>
+<div class="card"><img src="../static/imges/Screenshot 2023-08-04 162043.png "/>
+<div class="info">
+<h1>Road</h1>
+<p>Lorem Ipsum is simply dummy text from the printing and typeseting industry</p>
+<button>Read More</button>
+</div>
+</div>
+<div class="card"><img src="../static/imges/Screenshot 2023-08-04 162115.png"/>
+<div class="info">
+<h1>Mountain</h1>
+<p>Lorem Ipsum is simply dummy text from the printing and typeseting industry</p>
+<button>Read More</button>
+</div>
+</div>
+<div class="card"><img src="../static/imges/Screenshot 2023-08-04 162209.png"/>
+<div class="info">
+<h1>Mountain</h1>
+<p>Lorem Ipsum is simply dummy text from the printing and typeseting industry</p>
+<button>Read More</button>
+</div>
+</div>
+<div class="card"><img src="../static/imges/Screenshot 2023-08-04 162637.png">
+<div class="info">
+<h1>Mountain</h1>
+<p>Lorem Ipsum is simply dummy text from the printing and typeseting industry</p>
+<button>Read More</button>
+</div>
+</div>
+</div>
+</div>
+<br><br><hr>
+<h1  style=" color: #ecf0f1;
+font-family: 'Cherry Swash',cursive;text-align: center;">Where Success Begins</h1>
+
+<div class="maincontainer">
+<div class="back">
+  <h2>Copywriting</h2>
+  <p>Introduction to Copywriting’ workshop focuses on the theory and processes of professional copywriting as applied to persuasion, reasoning, and rhetoric. This workshop is best-suited to learning how to write and think about consumer-driven functions.</p>
+</div>
+<div class="front">
+  <div class="image">
+  <img src="../static/imges/Screenshot 2023-08-04 162703.png">
+  
   </div>
-  <div class="glide__arrows" data-glide-el="controls">
-    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-      prev
-    </button>
-    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-      next
-    </button>
+</div>
+</div>
+<div class="maincontainer">
+<div class="back">
+  <h2>Content Marketing</h2>
+  <p>Introduction to Content Marketing workshop focuses on building content frameworks that are designed for and directed at communication engagement. This interdisciplinary workshop is best-suited to learning visual and written communication strategies.</p>
+</div>
+<div class="front">
+  <div class="image">
+  <img src="../static/imges/Screenshot 2023-08-04 162733.png" >
+  
   </div>
+</div>
+</div>
+<div class="maincontainer">
+<div class="back">
+  <h2>Web Writing</h2>
+  <p>Introduction to Web-Writing workshop focuses on building creative and systemic digital content through online user experiences that benefit people and robots. This workshop is best-suited to creating content for digital platforms and devices — websites, mobile, game consoles, and virtual reality engines.</p>
+</div>
+<div class="front">
+  <div class="image">
+  <img src="../static/imges/Screenshot 2023-08-04 162831.png">
+  
+  </div>
+</div>
 </div>
 
-<!------------------------------------ Movies ------------------------------------------>
-<div class="movies">
-  <p class="movies-p">Movies</p>
-  <div class="my-flex">
-    {% for movie in data.movies %}
-    <div class="card">
-      <a
-        class="card-a"
-        href="{{url_for('movies_router.movie_details', movie_id=movie.id)}}"
-      >
-        <img class="card-image" src="{{movie.poster}}" alt=""
-      /></a>
-      <p class="card-heading">{{movie.title}}</p>
-    </div>
-    {% endfor %}
-  </div>
+<div class="maincontainer">
+<div class="back">
+<h2>Web Writing</h2>
+<p>Introduction to Web-Writing workshop focuses on building creative and systemic digital content through online user experiences that benefit people and robots. This workshop is best-suited to creating content for digital platforms and devices — websites, mobile, game consoles, and virtual reality engines.</p>
 </div>
 
-<!---------------------------------------Featured Shows---------------------------------------->
-<div class="glide">
-  <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides">
-      {% for show in data.featured_shows %}
-      <li class="glide__slide">
-        <img class="poster" src="{{show.poster}}" alt="{{show.title}}" />
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div class="glide__arrows" data-glide-el="controls">
-    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-      prev
-    </button>
-    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-      next
-    </button>
+<div class="front">
+<div class="image">
+<img src="../static/imges/Screenshot 2023-08-04 163013.png" >
+</div>
+</div>
+</div>
+<div class="maincontainer">
+<div class="back">
+<h2>Web Writing</h2>
+<p>Introduction to Web-Writing workshop focuses on building creative and systemic digital content through online user experiences that benefit people and robots. This workshop is best-suited to creating content for digital platforms and devices — websites, mobile, game consoles, and virtual reality engines.</p>
+</div>
+<div class="front">
+<div class="image">
+<img src="../static/imges/Screenshot 2023-08-04 163113.png" >
+</div>
+</div>
+</div>
+<div class="maincontainer">
+<div class="back">
+  <h2>Web Writing</h2>
+  <p>Introduction to Web-Writing workshop focuses on building creative and systemic digital content through online user experiences that benefit people and robots. This workshop is best-suited to creating content for digital platforms and devices — websites, mobile, game consoles, and virtual reality engines.</p>
+</div>
+<div class="front">
+  <div class="image">
+  <img src="../static/imges/Screenshot 2023-08-04 175829.png" >
+  
   </div>
 </div>
-<!-------------------------------------------Shows---------------------------------------------->
-<div class="movies">
-  <p class="movies-p">TV Shows</p>
-  <div class="shows my-flex">
-    {% for show in data.shows %}
-    <div class="card">
-      <img class="card-image" src="{{show.poster}}" alt="" />
-      <p class="card-heading">{{show.title}}</p>
-    </div>
-    {% endfor %}
-  </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
-<script>
-  const carousel_options = {
-    type: "carousel",
-    autoplay: 1000,
-    startAt: 0,
-    perView: 3,
-  };
-  new Glide(".glide", carousel_options).mount();
-</script>
-{% endblock %}
+<p class="box">#Thursday _ Hup
+is a weekly paragraphsFor Hub200, we do it every week with different activities. You will get to know them and we will mention them every week. Wait for Thursday's post every Wednesday so you know what will happen and you will come and enjoy our time and our activities together.
+Our decision-making is sometimes a complicated thing, and we need to know the impact of these decisions on our lives and how to face the issues in our lives. Today’s movie is one of the animation films that talks about important aspects of our future decisions and makes us understand ourselves and how to reach the right decision.  
+
+#khamis_hup
+</p>
+
+
+</div>
+
+<div class="footer">
+<a href="c.html"></a>
+</div>
+</main>
